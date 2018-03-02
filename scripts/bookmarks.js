@@ -8,54 +8,101 @@
 //V5. Create a onclick listener to open an a detailed view on li element.
 
 //Takes each array item passed as argument and returns a single string for buildHtml to create a full string.
+
+let editState = false;
+
 const liItem = function(item) {
     //Simple list item
+    const star = `<span class="fa fa-star checked"></span>`;
+    let starString = '';
+    for (let i=0; i<item.rating; i++) {
+        starString += star;
+    }
     return `
     <li class="simple"id="${item.id}">
-        <h3>${item.title}</h3>
-        <p class="rating${item.rating}"></p>
-        <button class="delete-item">delete</button>
+        <div class="row">
+            <div class="col-3">
+                <h3>${item.title}</h3>
+                <p class="rating${item.rating}">${starString}</p>
+                <button class="delete-item">delete</button>
+            </div>
+            <div class="col-9">
+                <button class="show-details">Show Details</button>
+            </div>
+        </div>
     </li>
     `
 }
 
 //Takes items from store and passes html string for render();
-const buildHtml = function() {
-    let items = store.bookmarks.map((item) => liItem(item));
+const buildHtml = function(bookmarks=store.bookmarks) {
+    let items = bookmarks.map((item) => liItem(item));
     return items.join('');
 }
 
 const detailedView = function() {
     const detailedLiItem = function(item) {
+        const star = `<span class="fa fa-star checked"></span>`;
+        let starString = '';
+        for (let i=0; i<item.rating; i++) {
+            starString += star;
+        }
         return `
-        <div class="detailed-div-left">
-            <h3>${item.title}</h3>
-            <p class="rating${item.rating}"></p>
-            <button class="delete-item">delete</button>
-        </div>
-        <div class="detailed-div-right>
-            <button class="visit-url"><a href="${item.url}" target="_blank">Visit Page</a></button>
-            <span>${item.desc}</span>
+        <div class="row">
+            <div class="col-3">
+                <h3>${item.title}</h3>
+                <p class="rating${item.rating}">${starString}</p>
+                <button class="delete-item">delete</button>
+            </div>
+            <div class="col-3>
+                <button class="visit-url"><a href="${item.url}" target="_blank">Visit Page</a></button>
+                <span id="change-rating-span">Change Rating
+                <select id="change-rating">
+                    <option></option>
+                    <option value="5">5 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="2">2 Stars</option>
+                    <option value="1">1 Star</option>
+                </select>
+                </span>
+            </div>
+            <div class="col-6">
+                <span class="item-description">${item.desc}</span>
+                <button class="show-details">Close Details</button>
+            </div>
         </div>
         `
     }
     const simpleLiItem = function(item) {
+        const star = `<span class="fa fa-star checked"></span>`;
+        let starString = '';
+        for (let i=0; i<item.rating; i++) {
+            starString += star;
+        }
         return `
-            <h3>${item.title}</h3>
-            <p class="rating${item.rating}"></p>
-            <button class="delete-item">delete</button>
+        <div class="row">
+            <div class="col-3">
+                <h3>${item.title}</h3>
+                <p class="rating${item.rating}">${starString}</p>
+                <button class="delete-item">delete</button>
+            </div>
+            <div class="col-9">
+                <button class="show-details">Show Details</button>
+            </div>
+        </div>
         `
     }
-    $('ul').on('click', 'li', function() {
-        let bookmark = store.findById(this.id);
+    $('ul').on('click', '.show-details', function() {
+        let bookmark = store.findById(this.closest('li').id);
         let htmlString = simpleLiItem(bookmark);
-        if ($(this).hasClass('simple')) {
-            $(this).removeClass('simple');
+        if ($(this).closest('li').hasClass('simple')) {
+            $(this).closest('li').removeClass('simple');
             htmlString = detailedLiItem(bookmark);
         } else {
-            $(this).addClass('simple');
+            $(this).closest('li').addClass('simple');
         }
-        $(this).html(htmlString);
+        $(this).closest('li').html(htmlString);
     })
 }
 
@@ -67,6 +114,16 @@ const deleteBookmark = function() {
             render();
         })
         
+    })
+}
+
+const sort = function() {
+    $('#filter-by-rating').on('change', function(){
+        let rating = document.getElementById('filter-by-rating');
+        let selectedRating = rating.options[rating.selectedIndex].value;
+        let tempArray = store.bookmarks.filter((bookmark) => (bookmark.rating >= selectedRating))
+        let htmlString = buildHtml(tempArray);
+        $('.results').html(htmlString);
     })
 }
 
@@ -108,10 +165,52 @@ const submitBookmark = function() {
         $('#description').val('');
         api.createBookmark(newBookmark, function() {
             console.log('pushed into store');
-            render();
         });
         setTimeout(function(){
             api.getBookmarks((bookmarks) => {
+                store.bookmarks = [];
+                bookmarks.forEach((bookmark) => store.addBookmark(bookmark));
+                render();
+              });
+        }, 500)
+    })
+}
+
+const changeRating = function() {
+    $('ul').on('change', '#change-rating', function() {
+        let rating = document.getElementById('change-rating');
+        let selectedRating = rating.options[rating.selectedIndex].value;
+        let bookmarkId = store.findById(this.closest('li').id).id;
+        api.updateBookmark(bookmarkId, {rating: selectedRating}, function() {
+        });
+        setTimeout(function(){
+            api.getBookmarks((bookmarks) => {
+                store.bookmarks = [];
+                bookmarks.forEach((bookmark) => store.addBookmark(bookmark));
+                render();
+              });
+        }, 500)
+    })
+}
+
+const changeDesc = function() {
+    $('ul').on('click', '.item-description', function() {
+        if (editState === false) {
+            editState = true;
+            const placeholder = $(this).text();
+            $(this).html(`<textarea class="desc-edit">${placeholder}</textarea>
+            <button class="submit-changes">Submit Changes</button>`)
+        }
+    })
+    $('ul').on('click', '.submit-changes', function() {
+        let newDesc = $('.desc-edit').val();
+        let bookmarkId = store.findById(this.closest('li').id).id;
+        api.updateBookmark(bookmarkId, {desc: newDesc}, function() {
+            console.log('updated callback');
+        });
+        setTimeout(function(){
+            api.getBookmarks((bookmarks) => {
+                editState = false;
                 store.bookmarks = [];
                 bookmarks.forEach((bookmark) => store.addBookmark(bookmark));
                 render();
@@ -125,5 +224,8 @@ const handleApp = function() {
     submitBookmark();
     detailedView();
     deleteBookmark();
+    sort();
+    changeDesc();
+    changeRating();
     render();
 }

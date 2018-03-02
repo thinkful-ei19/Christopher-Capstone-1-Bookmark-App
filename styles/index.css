@@ -50,37 +50,19 @@
     display: none;
   }
 
-  .rating1 {
-    content: "\f005 \f006 \f006 \f006 \f006";
-    font-size: 32px;
+  .col-3 {
+      padding: 10px;
   }
 
-  .rating2 {
-    content: "\f005 \f005 \f006 \f006 \f006";
-    font-size: 32px;
+  .col-6 {
+      padding: 10px;
   }
 
-  .rating3 {
-    content: "\f005 \f005 \f005 \f006 \f006";
-    font-size: 32px;
+  .col-9 {
+      padding: 10px;
   }
 
-  .rating4::after {
-    content: "\f005 \f005 \f005 \f005 \f006";
-    font-size: 32px;
-  }
-
-  .rating5::after {
-    content: "\f005 \f005 \f005 \f005 \f005";
-    font-size: 32px;
-  }
-
-  .detailed-div-left {
-    width: 33%;
-    display: inline-block;
-  }
-
-  .detailed-div-right {
-    width: 33%;
-    display: inline-block;
+  .desc-edit {
+      width: 300px;
+      height: 200px;
   }
