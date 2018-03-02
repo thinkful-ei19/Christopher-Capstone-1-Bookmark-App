@@ -1,0 +1,86 @@
+
+.form-div {
+    background-color: #bbbbbb;
+    border: 1px solid black;
+    height: 100vh;
+    width: 18%;
+    float: left;
+    padding: 10px;
+  }
+  
+  form input {
+      width: 97.5%;
+  }
+  
+  .add-description {
+      width: 97.5%;
+      height: 100px;
+  }
+  
+  .col-9 {
+      text-align: center;
+  }
+  
+  .display-add-bookmark {
+      margin: 0 100px;
+  }
+  
+  #filter-by-rating-span {
+      margin: 0 100px;
+  }
+  
+  ul {
+      border: 1px solid black;
+  }
+  
+  li {
+    list-style: none;
+    text-align: left;
+    border: 1px solid black;
+  }
+  
+  .center {
+    text-align: center;
+    width: 60%;
+    margin: auto;
+    padding: 10px;
+  }
+  
+  .hidden {
+    display: none;
+  }
+
+  .rating1 {
+    content: "\f005 \f006 \f006 \f006 \f006";
+    font-size: 32px;
+  }
+
+  .rating2 {
+    content: "\f005 \f005 \f006 \f006 \f006";
+    font-size: 32px;
+  }
+
+  .rating3 {
+    content: "\f005 \f005 \f005 \f006 \f006";
+    font-size: 32px;
+  }
+
+  .rating4::after {
+    content: "\f005 \f005 \f005 \f005 \f006";
+    font-size: 32px;
+  }
+
+  .rating5::after {
+    content: "\f005 \f005 \f005 \f005 \f005";
+    font-size: 32px;
+  }
+
+  .detailed-div-left {
+    width: 33%;
+    display: inline-block;
+  }
+
+  .detailed-div-right {
+    width: 33%;
+    display: inline-block;
+  }
