@@ -143,7 +143,7 @@ const bookmarks = (function () {
             //Create an object
             let rating = document.getElementById('form-rating');
             let selectedRating = rating.options[rating.selectedIndex].value;
-            
+
             const newBookmark = {
                 id: cuid(),
                 title: $('#title').val(),
@@ -204,7 +204,7 @@ const bookmarks = (function () {
                     bookmarks.forEach((bookmark) => store.addBookmark(bookmark));
                     render();
                 });
-            }, 500)
+            }, 1000)
         })
     }
 

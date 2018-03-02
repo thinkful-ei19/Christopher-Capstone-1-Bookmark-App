@@ -10,13 +10,20 @@ h1 {
     font-size: 48px;
 }
 
-body button, body select, body input, body textarea {
-    color: black;
-    font-family: 'Fredoka One';
+.submit-button {
+    font-size: 36px;
 }
 
-button {
+body button, body select, body input, body textarea {
+    font-family: 'Fredoka One';
     border: 1px solid black;
+    background-color: #333333;
+    opacity: .8;
+    color: white;
+}
+
+.controls {
+    font-size: 24px;
 }
 
 #filter-by-rating-span {
@@ -34,21 +41,25 @@ button {
     opacity: .8;
 }
 
+#form-rating {
+    font-size: 24px;
+}
+
 form input {
     width: 97.5%;
 }
 
 .add-description {
     width: 97.5%;
-    height: 100px;
+    height: 300px;
 }
 
 .display-add-bookmark {
-    margin: 0 100px;
+    margin: 0 50px;
 }
 
 #filter-by-rating-span {
-    margin: 0 100px;
+    margin: 0 50px;
 }
 
 .main-box {
@@ -96,8 +107,8 @@ h3 {
 
 .show-details {
     float: right;
+    font-size: 16px;
     margin-right: 40px;
-    margin-bottom: 80px;
 }
 
 #change-rating-span {
@@ -108,7 +119,6 @@ h3 {
 .desc-edit {
     width: 100%;
     height: 200px;
-    color: black;
 }
 
 .item-description {
@@ -123,4 +133,8 @@ h3 {
 button {
     margin: 10px;
     opacity: .8;
+}
+
+.item-description-button, .submit-changes {
+    font-size: 18px;
 }
