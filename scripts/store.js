@@ -3,7 +3,6 @@
 const store = (function() {
     
     const addBookmark = function(bookmark) {
-        console.log('string', this.bookmarks);
         this.bookmarks.push(bookmark);
     }
  

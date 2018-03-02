@@ -6,8 +6,9 @@
     <title>Web Bookmarker</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Satisfy" rel="stylesheet">
     <link rel="stylesheet" href="styles/index.css">
-    <link rel="stylesheet" href="styles/grid.css">
   </head>
 
   <body>
@@ -40,20 +41,20 @@
         </form>
       </div>
     <div class="center">
-      <h1>Web Bookmarker</h1>
-      <div class="controls">
-        <button class="display-add-bookmark">Add Bookmark</button>
-        <span id="filter-by-rating-span">Filter by minimum rating of:
-        <select id="filter-by-rating">
-            <option value="5">5 Stars</option>
-            <option value="4">4 Stars</option>
-            <option value="3">3 Stars</option>
-            <option value="2">2 Stars</option>
-            <option value="1" selected="selected">1 Star</option>
-        </select>
-    </span>
-      </div>
-        <div class="result-box">
+        <div class="main-box">
+          <h1>Web Bookmarker</h1>
+            <div class="controls">
+              <button class="display-add-bookmark">Add Bookmark</button>
+              <span id="filter-by-rating-span">Filter by minimum rating of:
+              <select id="filter-by-rating">
+                  <option value="5">5 Stars</option>
+                  <option value="4">4 Stars</option>
+                  <option value="3">3 Stars</option>
+                  <option value="2">2 Stars</option>
+                  <option value="1" selected="selected">1 Star</option>
+              </select>
+          </span>
+            </div>
             <ul class="results">
             </ul>
         </div>
